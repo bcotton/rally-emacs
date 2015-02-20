@@ -13,9 +13,9 @@
 ;; Default to a theme that looks reasonably nice in 256-color
 ;;; For reasons I can't comprehend, blackboard doesn't work properly
 ;;; if you call it too soon. Delaying 1 second seems to do the trick.
-(add-hook 'emacs-startup-hook
-          '(lambda ()
-             (run-at-time "1 sec" nil 'color-theme-blackboard)))
+;; (add-hook 'emacs-startup-hook
+;;           '(lambda ()
+;;              (run-at-time "1 sec" nil 'color-theme-blackboard)))
 
 (defun grover ()
   (interactive)
