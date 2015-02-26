@@ -1,30 +1,33 @@
-(global-set-key (kbd "M-g")
- (defhydra hydra-zoom ()
-   "goto"
-   ("TAB" move-to-column "column")
-   ("N" first-error "first")
-   ("n" next-error "next")
-   ("p" previous-error "prev")
-   ("g" goto-line "goto-line" :color blue)
-   ("c" goto-char "goto-char" :color blue)
-   ("q" nil "quit")))
+(require 'hydra)
+(set-face-foreground 'hydra-face-red "red1")
+(set-face-foreground 'hydra-face-blue "RoyalBlue1")
 
+(defhydra hydra-goto ()
+  "
+Goto Places (M-g <key>)
+    _g_: goto-line      _n_: next-error
+    _c_: goto-char      _p_: previous-error
+                        _N_: first-error
+"
+  ("TAB" move-to-column "column")
+  ("N" first-error "first")
+  ("n" next-error "next")
+  ("p" previous-error "prev")
+  ("g" goto-line "goto-line" :color blue)
+  ("c" goto-char "goto-char" :color blue)
+  ("q" nil "quit"))
+(global-set-key (kbd "M-g") 'hydra-goto/body)
 
-(global-set-key (kbd "C-M-o")
- (defhydra hydra-window ()
-   "window"
-   ("n" windmove-down)
-   ("p" windmove-up)
-   ("f" windmove-right)
-   ("b" windmove-left)
-   ("3" (lambda ()
-          (interactive)
-          (split-window-right)
-          (windmove-right)) :color blue)
-   ("2" (lambda ()
-          (interactive)
-          (split-window-below)
-          (windmove-down)) :color blue)
-   ("0" delete-window "delete")
-   ("q" nil "quit")
-   ))
+(defhydra hydra-git (:color blue)
+  "
+Git Commands (C-x g <key>):
+  _s_: magit-status
+  _t_: git time-machine
+  _b_: magit-blame-mode
+  _q_: quit
+"
+  ("s" magit-status nil)
+  ("t" git-timemachine "TM")
+  ("b" magit-blame-mode "blame")
+  ("q" nil "quit"))
+(global-set-key (kbd "C-x g") 'hydra-git/body)
